@@ -1,0 +1,150 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/linuxserver/homeassistant
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:2024.9.3
+    container_name: homeassistant
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.70
+    dns:
+      - ${DNS}
+    expose:
+      - 8123
+    volumes:
+      - ./config:/config
+    #devices:
+    #  #ls -al /dev/serial/by-id/
+    #  - /dev/ttyACM0:/dev/ttyACM0
+    environment:
+      - TZ=${TZ}
+      - PUID=${UID}
+      - PGID=${GID}
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - mariadb
+      - influxdb
+
+  #https://hub.docker.com/_/mariadb
+  mariadb:
+    image: docker.io/mariadb:11.5.2
+    container_name: homeassistant-db
+    restart: unless-stopped
+    user: ${UID}:${GID}
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.71
+    dns:
+      - ${DNS}
+    expose:
+      - 3306
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+      - ./mariadb-config/:/etc/mysql/conf.d
+    environment:
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/secret_mysql_root_pw
+      - MYSQL_DATABASE=ha_db
+      - MYSQL_USER=makusa
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_pw
+    security_opt:
+      - no-new-privileges:true
+    secrets:
+      - secret_mysql_root_pw
+      - secret_mysql_pw
+
+  #https://hub.docker.com/_/influxdb
+  influxdb:
+    image: docker.io/influxdb:2.7.10
+    container_name: homeassistant-db-long
+    restart: unless-stopped
+    user: ${UID}:${GID}
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.72
+    dns:
+      - ${DNS}
+    expose:
+      - 8086
+    volumes:
+      - ./influxdb-data:/var/lib/influxdb2
+      - ./influxdb-config/:/etc/influxdb2
+    environment:
+      - TZ=${TZ}
+      #- DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_MODE=upgrade
+      - DOCKER_INFLUXDB_INIT_USERNAME=makusa
+      - DOCKER_INFLUXDB_INIT_PASSWORD_FILE=/run/secrets/secret_influxdb_pw
+      - DOCKER_INFLUXDB_INIT_ORG=maku
+      - DOCKER_INFLUXDB_INIT_BUCKET=homeassistant
+    security_opt:
+      - no-new-privileges:true
+    secrets:
+      - secret_influxdb_pw
+
+secrets:
+  secret_mysql_root_pw:
+    file: ./secrets/secret_mysql_root_pw.txt
+  secret_mysql_pw:
+    file: ./secrets/secret_mysql_pw.txt
+  secret_influxdb_pw:
+    file: ./secrets/secret_influxdb_pw.txt
+
+###### CONFIGURATION ######
+
+# W InfluxDB trzeba stworzyć Tokeny dla HA oraz Grafana i zaktualizować je u nich:
+# - https://docs.influxdata.com/influxdb/v2/tools/grafana/?t=InfluxQL
+#   + Dodany "Custom HTTP Headers" musi się nazywać "Authorization" i mieć wartość "Token <TOKEN_DLA_GRAFANA>"
+
+# After HA up edit file ./config/configuration.yaml to state like:
+
+## Loads default set of integrations. Do not remove.
+#default_config:
+#
+## Load frontend themes from the themes folder
+#frontend:
+#  themes: !include_dir_merge_named themes
+#
+#automation: !include automations.yaml
+#script: !include scripts.yaml
+#scene: !include scenes.yaml
+#
+#recorder:
+#  db_url: mysql://makusa:<HIDDEN_DATA>@192.168.200.71:3306/ha_db?charset=utf8
+#  purge_keep_days: 10   # default
+#
+#history:
+#
+#wake_on_lan:
+#
+#influxdb:
+#  api_version: 2
+#  ssl: false
+#  host: 192.168.200.72
+#  port: 8086
+#  token: <TOKEN_DLA_HA>
+#  organization: maku
+#  bucket: homeassistant
+#  tags:
+#    source: HomeAssistant
+#  tags_attributes:
+#    - friendly_name
+#  default_measurement: units
+#  #ignore_attributes:
+#  #  - icon
+#  #exclude:    # Customise to fit your needs
+#  #  entities:
+#  #    - zone.home
+#  #  domains:
+#  #    - persistent_notification
+#  #    - person
+#
+#http:
+#  use_x_forwarded_for: true
+#  trusted_proxies:
+#    - 0.0.0.0/0

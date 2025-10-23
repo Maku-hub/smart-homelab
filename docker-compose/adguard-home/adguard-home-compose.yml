@@ -1,0 +1,54 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/adguard/adguardhome
+  adguard-home:
+    image: docker.io/adguard/adguardhome:v0.107.52
+    container_name: adguard-home
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.40
+    expose:
+      - 80
+      - 3000
+    ports:
+      - ${HOST_ADDR}:53:53/tcp
+      - ${HOST_ADDR}:53:53/udp
+    volumes:
+      - ./opt-adguardhome-work:/opt/adguardhome/work
+      - ./opt-adguardhome-conf:/opt/adguardhome/conf
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    
+###### CONFIGURATION ######
+
+#Username/Password: <HIDDEN_DATA>/<HIDDEN_DATA>
+
+#Storage of statistics: 90 days
+
+#DNS Servers:
+#https://dns.quad9.net/dns-query
+#https://dns.cloudflare.com/dns-query
+#https://dns.google/dns-query
+
+#Enable DNSSEC
+
+#Blockes DNS (https://firebog.net/):
+#AdGuard DNS filter - https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+#Dan Pollock's List - https://adguardteam.github.io/HostlistsRegistry/assets/filter_4.txt
+#PolishFiltersTeam - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+#CERT Polska - http://hole.cert.pl/domains/domains_hosts.txt
+#abp.oisd - https://abp.oisd.nl/
+#OISD Blocklist Big - https://adguardteam.github.io/HostlistsRegistry/assets/filter_27.txt
+#StevenBlack - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+
+#Przepisywanie DNS
+#maku.local - 192.168.2.10
+#*.maku.local - 192.168.2.10
+
+#Ustawienie we wszystkich urządzeniach w sieci ze statycznym adresem IP tylko serwera DNS AdGuarda (również dla MikroTika by działało dla DHCP)

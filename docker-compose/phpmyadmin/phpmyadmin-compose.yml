@@ -1,0 +1,22 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/_/phpmyadmin
+  phpmyadmin:
+    image: docker.io/phpmyadmin:5.2.1
+    container_name: phpmyadmin
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.80
+    dns:
+      - ${DNS}
+    expose:
+      - 80
+    environment:
+      - TZ=${TZ}
+      - PMA_ARBITRARY=1
+    security_opt:
+      - no-new-privileges:true

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pl-PL" data-theme="maku-docs">
+    <head>
+        <title>Home Dashboard</title>
+        <link rel="icon" type="image/x-icon" href="./icons/logo.png">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./fat.css" rel="preload" as="style">
+        <link href="./fat.css" rel="stylesheet" type="text/css" >
+        <style>
+            @media only screen and (min-width: 1280px) and (min-height: 720px) {
+                /* Apply zoom only on screens with a minimum resolution of 1280x720 */
+                body {
+                    zoom: 125%;
+                    overflow: hidden; /* Prevent scrolling beyond the content */
+                    height: 100vh; /* Ensure body height fits the viewport */
+                }
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Check if the screen resolution is at least 1280x720
+                if (window.innerWidth >= 1280 && window.innerHeight >= 720) {
+                    document.body.style.zoom = "125%";
+                    document.body.style.overflow = "hidden"; // Prevent scrolling beyond the content
+                    document.body.style.height = "100vh"; // Ensure body height fits the viewport
+                }
+                if (window.innerWidth > window.innerHeight) {
+                    document.body.style.overflow = "hidden"; // Prevent scrolling beyond the content
+                    document.body.style.height = "100vh"; // Ensure body height fits the viewport
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div id="home-dashboard" class="" style="--footer-height: 5rem;"><!----><!----><!---->
+            <div data-v-4e9010b3="" class="minimal-home" style="--col-count: 1;">
+                <div data-v-4e9010b3="" class="title-and-search">
+                    <a data-v-4e9010b3="" href="https://maku.local/" class="router-link-active">
+                        <h1 data-v-4e9010b3="">Home Dashboard</h1>
+                    </a>
+                </div>
+                <div data-v-4e9010b3="" class="item-group-container ">
+                    <div data-v-5cc288c5="" data-v-4e9010b3="" class="headings selected minimal-section-heading">
+                        <div data-v-5cc288c5="" class="section-icon item-icon wrapper-small">
+                            <img src="./icons/home.png" class="tile-icon small "><!---->
+                        </div>
+                        <h3 data-v-5cc288c5="" class="section-title">Home Links</h3>
+                    </div>
+                    <div data-v-7364a983="" data-v-4e9010b3="" class="minimal-section-inner selected ">
+                        <div data-v-7364a983="" class="section-items">
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://mikrotik.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">MikroTik</span>
+                                        <p class="description">MikroTik</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/mikrotik.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://maku.local/share/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Share</span>
+                                        <p class="description">Share</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/share.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://portainer.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Portainer</span>
+                                        <p class="description">Portainer</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/portainer.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://adguard.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">AdGuard</span>
+                                        <p class="description">AdGuard</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/adguard.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://librespeed.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">LibreSpeed</span>
+                                        <p class="description">LibreSpeed</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/librespeed.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://panel.netfala.pl/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">NETFALA</span>
+                                        <p class="description">NETFALA</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/netfala.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://tomojdom.pl/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">ToMojDom</span>
+                                        <p class="description">ToMojDom</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/tomojdom.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://ebok.gkpge.pl/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">PGE</span>
+                                        <p class="description">PGE</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/pge.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://home-assistant.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Home Assistant</span>
+                                        <p class="description">Home Assistant</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/homeassistant.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://zigbee2mqtt.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Zigbee2MQTT</span>
+                                        <p class="description">Zigbee2MQTT</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/zigbee2mqtt.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://influxdb.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">InfluxDB</span>
+                                        <p class="description">InfluxDB</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/influxdb.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://wled.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">WLED</span>
+                                        <p class="description">WLED</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/wled.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://reolink.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Reolink</span>
+                                        <p class="description">Reolink</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/reolink.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://passbolt.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Passbolt</span>
+                                        <p class="description">Passbolt</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/passbolt.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://phpmyadmin.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">phpMyAdmin</span>
+                                        <p class="description">phpMyAdmin</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/phpmyadmin.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://pgadmin.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">pgAdmin</span>
+                                        <p class="description">pgAdmin</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/pgadmin.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://file-browser.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">File Browser</span>
+                                        <p class="description">File Browser</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/filebrowser.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://grafana.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Grafana</span>
+                                        <p class="description">Grafana</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/grafana.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://zabbix.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Zabbix</span>
+                                        <p class="description">Zabbix</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/zabbix.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://prometheus.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Prometheus</span>
+                                        <p class="description">Prometheus</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/prometheus.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://vault.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Vault</span>
+                                        <p class="description">Vault</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/vault.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://semaphore.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Semaphore UI</span>
+                                        <p class="description">Semaphore UI</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/semaphore.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://upsnap.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">UpSnap</span>
+                                        <p class="description">UpSnap</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/upsnap.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://selenium.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Selenium</span>
+                                        <p class="description">Selenium</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/selenium.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://frog02-20981.wykr.es/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Mikrus FROG</span>
+                                        <p class="description">Mikrus FROG</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/mikrus-frog.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                            <div data-v-7364a983="" class="item-wrapper wrap-size-small span-0">
+                                <a href="https://meshtastic.maku.local/" target="_blank" rel="noopener noreferrer" tabindex="0" class="item size-small has-tooltip" has-tooltip" data-long-press-timeout="null" data-original-title="null" style="--open-icon: '\f360';">
+                                    <div class="tile-title ">
+                                        <span class="text">Meshtastic</span>
+                                        <p class="description">Meshtastic</p>
+                                    </div>
+                                    <div class="bounce item-icon wrapper-small">
+                                        <img src="./icons/meshtastic.png" class="tile-icon small "><!---->
+                                    </div>
+                                </a><!----><!----><!---->
+                            </div>
+                        </div><!----><!----><!---->
+                    </div><!---->
+                </div>
+            </div><!---->
+        </div>
+        <noscript>
+            <strong>Sorry, JavaScript needs to be enabled to run this Home Dashboard 😥</strong>
+        </noscript>
+    </body>
+</html>

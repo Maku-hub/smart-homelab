@@ -1,0 +1,110 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/_/mariadb
+  zabbix-db:
+    image: docker.io/mariadb:11.5.2
+    container_name: zabbix-db
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.121
+    dns:
+      - ${DNS}
+    volumes:
+      - ./zabbix-db/mariadb:/var/lib/mysql:rw
+      - ./zabbix-db/backups:/backups
+    environment:
+      - TZ=${TZ}
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_pw
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/secret_mysql_root_pw
+    command:
+      - mariadbd
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_bin
+      - --default-authentication-plugin=mysql_native_password
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 1m
+    secrets:
+      - secret_mysql_root_pw
+      - secret_mysql_pw
+
+  #https://hub.docker.com/r/zabbix/zabbix-server-mysql
+  zabbix-server:
+    image: docker.io/zabbix/zabbix-server-mysql:ubuntu-7.0.4
+    container_name: zabbix-server
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.120
+    #expose:
+    #  - 10051
+    dns:
+      - ${DNS}
+    volumes:
+      - ./zabbix-usr-data:/usr/lib/zabbix
+      - ./zabbix-var-data-export:/var/lib/zabbix/export
+      - ./zabbix-var-data-snmptraps:/var/lib/zabbix/snmptraps
+    environment:
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/secret_mysql_root_pw
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_pw
+      - DB_SERVER_HOST=zabbix-db
+      - ZBX_LISTENPORT=10051
+      - ZBX_STARTPINGERS=4
+    depends_on:
+      - zabbix-db
+    security_opt:
+      - no-new-privileges:false
+    stop_grace_period: 30s
+    sysctls:
+      - net.ipv4.ip_local_port_range=1024 65000
+      - net.ipv4.conf.all.accept_redirects=0
+      - net.ipv4.conf.all.secure_redirects=0
+      - net.ipv4.conf.all.send_redirects=0
+    secrets:
+      - secret_mysql_root_pw
+      - secret_mysql_pw
+
+  #https://hub.docker.com/r/zabbix/zabbix-web-nginx-mysql
+  zabbix-web:
+    image: docker.io/zabbix/zabbix-web-nginx-mysql:ubuntu-7.0.4
+    container_name: zabbix-web
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.122
+    expose:
+      - 8080
+    dns:
+      - ${DNS}
+    volumes:
+      - ./zabbix-web/nginx:/etc/ssl/nginx
+      - ./zabbix-web/modules/:/usr/share/zabbix/modules
+    environment:
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_pw
+      - DB_SERVER_HOST=zabbix-db
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_NAME=Zabbix Docker
+      - PHP_TZ=Europe/Warsaw
+    depends_on:
+      - zabbix-db
+      - zabbix-server
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 10s
+    secrets:
+      - secret_mysql_pw
+
+secrets:
+   secret_mysql_root_pw:
+     file: ./secrets/secret_mysql_root_pw.txt
+   secret_mysql_pw:
+     file: ./secrets/secret_mysql_pw.txt

@@ -1,0 +1,64 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/grafana/grafana
+  grafana:
+    image: docker.io/grafana/grafana:11.2.1
+    container_name: grafana
+    restart: unless-stopped
+    user: ${UID}:${GID}
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.100
+    dns:
+      - ${DNS}
+    expose:
+      - 3000
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    environment:
+      - TZ=${TZ}
+      #- GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel
+    security_opt:
+      - no-new-privileges:true
+
+  #https://hub.docker.com/r/grafana/loki
+  grafana-loki:
+    image: docker.io/grafana/loki:3.2.0
+    container_name: grafana-loki
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.101
+    dns:
+      - ${DNS}
+    expose:
+      - 3100
+    volumes:
+      - ./loki-config:/etc/loki
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+
+  #https://hub.docker.com/r/grafana/promtail
+  grafana-promtail:
+    image: docker.io/grafana/promtail:3.2.0
+    container_name: grafana-promtail
+    restart: unless-stopped
+    user: root
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.102
+    dns:
+      - ${DNS}
+    volumes:
+      - ./promtail-config:/etc/promtail
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true

@@ -1,0 +1,33 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/linuxserver/librespeed
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:5.4.1
+    container_name: librespeed
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.20
+    dns: 
+      - ${DNS}
+    expose:
+      - 80
+    volumes:
+      - ./config:/config
+    environment:
+      - TZ=${TZ}
+      - PUID=${UID}
+      - PGID=${GID}
+      - PASSWORD=/run/secrets/secret_librespeed
+      - DB_TYPE=sqlite #optional
+    security_opt:
+      - no-new-privileges:true
+    secrets:
+      - secret_librespeed
+
+secrets:
+   secret_librespeed:
+     file: ./secrets/secret_librespeed.txt

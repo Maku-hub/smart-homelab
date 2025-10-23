@@ -1,0 +1,23 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/selenium/standalone-chrome
+  selenium:
+    image: docker.io/selenium/standalone-chrome:130.0
+    container_name: selenium
+    restart: unless-stopped
+    #user: ${UID}:${GID}
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.170
+    dns:
+      - ${DNS}
+    expose:
+      - 4444
+    environment:
+      - TZ=${TZ}
+    #security_opt:
+    #  - no-new-privileges:true
+    shm_size: "1gb"

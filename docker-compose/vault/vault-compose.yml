@@ -1,0 +1,65 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/hashicorp/vault
+  vault:
+    image: hashicorp/vault:1.17.6
+    container_name: vault
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.130
+    dns:
+      - ${DNS}
+    expose:
+      - 8200:8200
+    volumes:
+      - ./logs:/vault/logs/:rw
+      - ./data:/vault/data/:rw
+      - ./config:/vault/config/:rw
+      - ./certs:/certs/:rw
+      - ./file:/vault/file/:rw
+    environment:
+      - TZ=${TZ}
+      - VAULT_ADDR=https://vault.maku.local/:8200
+      - VAULT_API_ADDR=https://vault.maku.local/:8200
+      - VAULT_ADDRESS=https://vault.maku.local/:8200
+      - VAULT_UI=true
+    security_opt:
+      - no-new-privileges:true
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config /vault/config/config.json
+
+###### CONFIGURATION ######
+
+### Configured login tokens
+#{
+#  "keys": [
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>"
+#  ],
+#  "keys_base64": [
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>",
+#    "<HIDDEN_DATA>"
+#  ],
+#  "root_token": "<HIDDEN_DATA>"
+#}
+
+### Install Vault CLI on client
+#wget https://releases.hashicorp.com/vault/1.13.0/vault_1.13.0_linux_amd64.zip
+#unzip vault_1.13.0_linux_amd64.zip
+#./vault --version
+
+### Vault CLI on client usage
+#VAULT_ADDR='https://vault.maku.local' VAULT_SKIP_VERIFY=true ./vault login <HIDDEN_DATA>
+#VAULT_ADDR='https://vault.maku.local' VAULT_SKIP_VERIFY=true ./vault status
+#VAULT_ADDR='https://vault.maku.local' VAULT_SKIP_VERIFY=true ./vault secrets list
+#VAULT_ADDR='https://vault.maku.local' VAULT_SKIP_VERIFY=true ./vault kv list cubbyhole/
+#VAULT_ADDR='https://vault.maku.local' VAULT_SKIP_VERIFY=true ./vault kv get cubbyhole/maku-home

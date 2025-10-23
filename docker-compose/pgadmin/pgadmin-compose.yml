@@ -1,0 +1,32 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/dpage/pgadmin4
+  pgadmin:
+    image: docker.io/dpage/pgadmin4:8.12.0
+    container_name: pgadmin
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.110
+    dns:
+      - ${DNS}
+    expose:
+      - 80
+    #user: "${UID}:${GID}"
+    environment:
+      - TZ=${TZ}
+      - PGADMIN_DEFAULT_EMAIL=<HIDDEN_DATA>
+      - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/secret_pgadmin_pw
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    security_opt:
+      - no-new-privileges:false
+    secrets:
+      - secret_pgadmin_pw
+
+secrets:
+   secret_pgadmin_pw:
+     file: secrets/secret_pgadmin_pw.txt

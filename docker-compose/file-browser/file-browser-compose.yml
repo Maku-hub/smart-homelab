@@ -1,0 +1,26 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/filebrowser/filebrowser
+  file-browser:
+    image: docker.io/filebrowser/filebrowser:v2.31.1
+    container_name: file-browser
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.90
+    dns:
+      - ${DNS}
+    expose:
+      - 80
+    volumes:
+      - ./files/:/srv
+      - ./database.db:/database.db  # You must first obtain this file from the container
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    healthcheck: 
+      disable: true

@@ -1,0 +1,24 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/portainer/portainer-ce
+  portainer:
+    image: docker.io/portainer/portainer-ce:2.21.2
+    container_name: portainer
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.30
+    dns:
+      - ${DNS}
+    expose:
+      - 9000
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true

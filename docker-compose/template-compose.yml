@@ -1,0 +1,40 @@
+###TEMPLATE
+#ln ../.env .env
+#mkdir secrets
+#docker compose --file <NAME>-compose.yml up -d
+#docker compose --file <NAME>-compose.yml down
+
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/adguard/adguardhome    # link to the Docker image
+  adguard-home:    # Service name
+    image: docker.io/adguard/adguardhome:v0.107.38    # image name
+    container_name: adguard-home    # container name
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.40    # the appropriate IP address for the container (last octet)
+    dns:
+      - ${DNS}
+    expose:
+      - 80    # appropriate port exposure for the given container so that other containers within the same subnet can access it (e.g., nginx for proxy)
+    ports:
+      - ${HOST_ADDR}:53:53    # appropriate publishing of ports that should be accessible from the host machine
+    volumes:
+      - ./opt-adguardhome-work:/opt/adguardhome/work    # appropriate mounting of Docker directories to host directories to prevent data loss during a restart
+    environment:
+      - TZ=${TZ}
+      - ...    # other additional environment variables
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - mariadb    # appropriate definition of which other services (from this docker-compose) this service depends on
+
+###### CONFIGURATION ######
+
+#login/password note
+#configuration note
+#documentation note

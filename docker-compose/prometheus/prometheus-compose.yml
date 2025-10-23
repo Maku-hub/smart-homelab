@@ -1,0 +1,93 @@
+networks:
+  nginx_network:
+    external: true
+
+services:
+  #https://hub.docker.com/r/prom/prometheus
+  prometheus:
+    image: docker.io/prom/prometheus:v2.54.1
+    container_name: prometheus
+    user: root
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.140
+    dns:
+      - ${DNS}
+    expose:
+      - 9090
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - ./prometheus-data:/prometheus
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    command: "--config.file=/etc/prometheus/prometheus.yaml"
+
+  #https://hub.docker.com/r/prom/node-exporter
+  prometheus-node-exporter:
+    image: docker.io/prom/node-exporter:v1.8.2
+    container_name: prometheus-node-exporter
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.141
+    dns:
+      - ${DNS}
+    expose:
+      - 9100
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+
+  #https://hub.docker.com/r/prom/blackbox-exporter
+  prometheus-blackbox-exporter:
+    image: docker.io/prom/blackbox-exporter:v0.25.0
+    container_name: prometheus-blackbox-exporter
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.142
+    dns:
+      - ${DNS}
+    expose:
+      - 9115
+    volumes:
+      - ./config/prometheus-blackbox-exporter.yaml:/etc/blackbox_exporter/config.yml:ro
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    command: "--config.file=/etc/blackbox_exporter/config.yml"
+
+  #https://hub.docker.com/r/prom/snmp-exporter
+  prometheus-snmp-exporter:
+    image: docker.io/prom/snmp-exporter:v0.26.0
+    container_name: prometheus-snmp-exporter
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.200.143
+    dns:
+      - ${DNS}
+    expose:
+      - 9116
+      - 161/udp
+    #volumes:
+    #  - ./config/prometheus-snmp-exporter.yaml:/etc/snmp_exporter/snmp.yml:ro
+    environment:
+      - TZ=${TZ}
+    security_opt:
+      - no-new-privileges:true
+    command: "--config.file=/etc/snmp_exporter/snmp.yml"
