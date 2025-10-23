@@ -119,7 +119,7 @@ Example structure:
 9. Start containers using the `manage.sh` script.
 
 10. Update DNS configuration:  
-Edit `/etc/resolv.conf` and set the DNS address to `172.25.100.10` (AdGuard).
+Edit `/etc/resolv.conf` and set the DNS address to `192.168.200.40` (AdGuard).
 
 11. Once all containers are running, add the following line to `/etc/docker/daemon.json` (Prometheus):
 ```bash
