@@ -3,7 +3,7 @@
 # My personal Smart HomeLab – a self-hosted setup for everyday use.
 
 > [!CAUTION]
-> in the future, migrating from docker-compose to Kubernetes with Helm.
+> In the future, I will migrate from `docker compose` to `Kubernetes` with `Helm`. I will also add automated infrastructure using `Terraform (kvm)` and `Ansible`. --- That is, building a full-fledged Kubernetes cluster.
 
 ### 📁 Repository structure
 
